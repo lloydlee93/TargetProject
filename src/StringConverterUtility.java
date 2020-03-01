@@ -19,11 +19,11 @@ public class StringConverterUtility {
 
     /**
      * Gets a data set and returns a list of coordinates representing the bottom-left (x,y) and upper-right (x,y) coordinates of a rectangle.
-     * @param dataSet, Array of String data to parse.
+     * @param dataSet, Array list of String data to parse.
      * @return a list of integer arrays, with each array being a size of 4.
      */
-    public static List<int[]> getCoordinates(String[] dataSet) {
-        String[] correctedData = correctDataSet(dataSet);
+    public static List<int[]> getCoordinates(ArrayList<String> dataSet) {
+        ArrayList<String> correctedData = correctDataSet(dataSet);
         List<int[]> coordinateList = new ArrayList<>();
 
         for (String data : correctedData) {
@@ -41,15 +41,15 @@ public class StringConverterUtility {
     /**
      * Corrects the data set if needed. Removes all characters that are not integers or spaces, removes leading and trailing
      * spaces, and checks if the data contains only 4 integers.
-     * @param data, data to correct, if needed.
-     * @return a String[] array of the data that can be parsed, otherwise an exception is thrown is the data is invalid.
+     * @param data, Array list of the data to correct if needed.
+     * @return an Array list of the data that can be parsed, otherwise an exception is thrown is the data is invalid.
      */
-    private static String[] correctDataSet(String[] data){
-        for(int i = 0; i < data.length; i++){
-            String copy = data[i];
-            data[i] = data[i].replaceAll("[^0-9 ]", " ");
-            data[i] = data[i].trim();
-            if(data[i].split("\\s+").length != COORDINATES_SIZE){
+    private static ArrayList<String> correctDataSet(ArrayList<String> data){
+        for(int i = 0; i < data.size(); i++){
+            String copy = data.get(i);
+            data.set(i, data.get(i).replaceAll("[^0-9 ]", " "));
+            data.set(i, data.get(i).trim());
+            if(data.get(i).split("\\s+").length != COORDINATES_SIZE){
                 throw new IllegalArgumentException(String.format("Unable to parse the data: %s. Coordinates found was not equal to 4.", copy));
             }
         }
