@@ -5,3 +5,4 @@
 .idea/workspace.xml
 TargetProject.iml
 out/production/TargetProject/TargetProject.class
+*.class
