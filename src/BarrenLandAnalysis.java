@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.Queue;
 
 /**
  * Class to determine the fertile land in square meters.
@@ -9,7 +10,7 @@ public class BarrenLandAnalysis {
      *
      * 1. Initialize 2D array              DONE
      * 2. Set Barren indexes in graph.     DONE
-     * 3. implement BFS
+     * 3. implement BFS                    IN PROGRESS
      * 4. store area into hashmap
      * 5. sort the hashmap
      * 6. print
@@ -19,7 +20,8 @@ public class BarrenLandAnalysis {
     private int mGraphWidth;
     private int mGraphHeight;
     private List<int[]> mBarrenLandList;
-    private final int BARREN = -1;
+    private Queue<int[]> mQueue;
+    final int BARREN = -1;
 
     public BarrenLandAnalysis(int width, int height, List<int[]> barrenLandList) {
         mGraphWidth = width;
@@ -33,8 +35,38 @@ public class BarrenLandAnalysis {
      * @return an int[] array of size 2 of smallest and largest fertile land areas.
      */
     public int[] getFertileLandArea() {
+        final int SIZE_OF_COORDINATE = 2;
+        final int UNVISITED = 0;
+        int area;
+
         setBarrenLand(getBarrenLandList());
 
+        for(int i = 0; i < getGraphWidth(); i++) {
+            for(int j = 0; j < getGraphHeight(); j++) {
+                if((getGraph()[i][j] != BARREN) && (getGraph()[i][j] != UNVISITED)) {
+                    //Add the current coordinate to queue.
+                    int[] coordinate = new int[SIZE_OF_COORDINATE];
+                    coordinate[0] = i;
+                    coordinate[1] = j;
+                    mQueue.add(coordinate);
+
+                    //reset area count.
+                    area = 0;
+                }
+
+                while(!mQueue.isEmpty()) {
+                    /**
+                     * TODO:
+                     * Add all neighboring nodes to the queue.
+                     * Mark the coordinate as visited by initializing it to some value.
+                     * increment area count.
+                     */
+                }
+
+                //TODO store area count here.
+
+            }
+        }
         return null;
     }
 
