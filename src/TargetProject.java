@@ -10,10 +10,16 @@ public class TargetProject {
 //        ArrayList<String> data = readFromSTDIN();
         ArrayList<String> data = new ArrayList<>();
         data.add("0 292 399 307");
+
         List<int[]> list = StringConverterUtility.getCoordinates(data);
 
         BarrenLandAnalysis barrenLandAnalysis = new BarrenLandAnalysis(WIDTH, HEIGHT, list);
-        barrenLandAnalysis.getFertileLandArea();
+
+        ArrayList<Integer> theFinalList = barrenLandAnalysis.getFertileLandArea();
+
+        for(Integer item: theFinalList) {
+            System.out.println(item.toString());
+        }
     }
 
     /**
@@ -42,3 +48,6 @@ public class TargetProject {
         return results;
     }
 }
+
+
+

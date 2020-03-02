@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
@@ -10,9 +12,9 @@ public class BarrenLandAnalysis {
      *
      * 1. Initialize 2D array              DONE
      * 2. Set Barren indexes in graph.     DONE
-     * 3. implement BFS                    IN PROGRESS
-     * 4. store area into hashmap
-     * 5. sort the hashmap
+     * 3. implement BFS                    DONE
+     * 4. store area into data structure   DONE
+     * 5. sort the data               
      * 6. print
      * 7. test
      */
@@ -20,8 +22,9 @@ public class BarrenLandAnalysis {
     private int mGraphWidth;
     private int mGraphHeight;
     private List<int[]> mBarrenLandList;
-    private Queue<int[]> mQueue;
     final int BARREN = -1;
+    final int UNVISITED = 0;
+    final int VISITED = 1;
 
     public BarrenLandAnalysis(int width, int height, List<int[]> barrenLandList) {
         mGraphWidth = width;
@@ -34,40 +37,69 @@ public class BarrenLandAnalysis {
      * Gets the area of the smallest and largest fertile land areas.
      * @return an int[] array of size 2 of smallest and largest fertile land areas.
      */
-    public int[] getFertileLandArea() {
-        final int SIZE_OF_COORDINATE = 2;
-        final int UNVISITED = 0;
-        int area;
+    public ArrayList<Integer> getFertileLandArea() {
+        Queue<int[]> queue = new LinkedList<>();
+        ArrayList<Integer> fertileLandList = new ArrayList<>();
+
+        int area = 0;
 
         setBarrenLand(getBarrenLandList());
 
         for(int i = 0; i < getGraphWidth(); i++) {
             for(int j = 0; j < getGraphHeight(); j++) {
-                if((getGraph()[i][j] != BARREN) && (getGraph()[i][j] != UNVISITED)) {
+                if(getGraph()[i][j] == UNVISITED) {
                     //Add the current coordinate to queue.
-                    int[] coordinate = new int[SIZE_OF_COORDINATE];
+                    int[] coordinate = new int[2];
                     coordinate[0] = i;
                     coordinate[1] = j;
-                    mQueue.add(coordinate);
+                    queue.add(coordinate);
 
                     //reset area count.
                     area = 0;
                 }
 
-                while(!mQueue.isEmpty()) {
-                    /**
-                     * TODO:
-                     * Add all neighboring nodes to the queue.
-                     * Mark the coordinate as visited by initializing it to some value.
-                     * increment area count.
-                     */
+                // For each item in the queue, mark it as visited, add all neighboring nodes to the queue, and increment area count.
+                while(!queue.isEmpty()) {
+                    int[] currentCoordinate = queue.remove();
+                    int xCoordinate = currentCoordinate[0];
+                    int yCoordinate = currentCoordinate[1];
+
+                    if(getGraph()[xCoordinate][yCoordinate] == UNVISITED) {
+                        //Mark the coordinate as VISITED.
+                        getGraph()[xCoordinate][yCoordinate] = VISITED;
+
+                        //Add left node.
+                        if ((xCoordinate - 1) >= 0) {
+                            queue.add(new int[]{xCoordinate - 1, yCoordinate});
+                        }
+
+                        //Add the right node.
+                        if ((xCoordinate + 1) < getGraphWidth()) {
+                            queue.add(new int[]{xCoordinate + 1, yCoordinate});
+                        }
+
+                        //Add the below node.
+                        if((yCoordinate - 1) >= 0) {
+                            queue.add(new int[]{xCoordinate, yCoordinate - 1});
+                        }
+
+                        //Add the above node.
+                        if((yCoordinate + 1) < getGraphHeight()) {
+                            queue.add(new int[] {xCoordinate, yCoordinate + 1});
+                        }
+
+                        //Increment area count.
+                        area++;
+                    } else {
+                        //Skip this node since we've already visited it or it's BARREN.
+                        continue;
+                    }
                 }
 
-                //TODO store area count here.
-
+                fertileLandList.add(area);
             }
         }
-        return null;
+        return fertileLandList;
     }
 
     /**
@@ -113,8 +145,8 @@ public class BarrenLandAnalysis {
             int x2 = item[2];
             int y2 = item[3];
 
-            for(int i = x1; i < x2; i++) {
-                for(int j = y1; j < y2; j++) {
+            for(int i = x1; i <= x2; i++) {
+                for(int j = y1; j <= y2; j++) {
                     getGraph()[i][j] = BARREN;
                 }
             }
