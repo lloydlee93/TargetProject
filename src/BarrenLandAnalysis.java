@@ -18,13 +18,14 @@ public class BarrenLandAnalysis {
     private int[][] mGraph;
     private int mGraphWidth;
     private int mGraphHeight;
+    private List<int[]> mBarrenLandList;
     private final int BARREN = -1;
 
     public BarrenLandAnalysis(int width, int height, List<int[]> barrenLandList) {
         mGraphWidth = width;
         mGraphHeight = height;
         mGraph = new int[width][height];
-        initGraph(barrenLandList);
+        mBarrenLandList = barrenLandList;
     }
 
     /**
@@ -32,7 +33,8 @@ public class BarrenLandAnalysis {
      * @return an int[] array of size 2 of smallest and largest fertile land areas.
      */
     public int[] getFertileLandArea() {
-        //TODO
+        setBarrenLand(getBarrenLandList());
+
         return null;
     }
 
@@ -61,10 +63,18 @@ public class BarrenLandAnalysis {
     }
 
     /**
+     * Gets the list of barren land.
+     * @return List of int[] arrays of barren land coordinates.
+     */
+    public List<int[]> getBarrenLandList() {
+        return mBarrenLandList;
+    }
+
+    /**
      * Initialize the barren points in the graph with BARREN(-1), all other fields are by default initialized to 0.
      * @param barrenLandList, list of coordinates of barren land.
      */
-    private void initGraph(List<int[]> barrenLandList) {
+    private void setBarrenLand(List<int[]> barrenLandList) {
         for(int[] item : barrenLandList) {
             int x1 = item[0];
             int y1 = item[1];
