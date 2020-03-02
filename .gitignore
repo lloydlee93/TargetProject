@@ -6,3 +6,4 @@
 TargetProject.iml
 out/production/TargetProject/TargetProject.class
 *.class
+out/production/TargetProject/META-INF/TargetProject.kotlin_module

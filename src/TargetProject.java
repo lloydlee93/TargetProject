@@ -3,10 +3,17 @@ import java.util.List;
 import java.util.Scanner;
 
 public class TargetProject {
+    private static final int WIDTH = 400;
+    private static final int HEIGHT = 600;
+
     public static void main(String args[]) {
-        ArrayList<String> data = readFromSTDIN();
+//        ArrayList<String> data = readFromSTDIN();
+        ArrayList<String> data = new ArrayList<>();
+        data.add("0 292 399 307");
         List<int[]> list = StringConverterUtility.getCoordinates(data);
-        System.out.println(list.size());
+
+        BarrenLandAnalysis barrenLandAnalysis = new BarrenLandAnalysis(WIDTH, HEIGHT, list);
+        barrenLandAnalysis.getFertileLandArea();
     }
 
     /**
