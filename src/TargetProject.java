@@ -9,8 +9,10 @@ public class TargetProject {
     public static void main(String args[]) {
 //        ArrayList<String> data = readFromSTDIN();
         ArrayList<String> data = new ArrayList<>();
-        data.add("0 292 399 307");
-
+        data.add("48 192 351 207");
+        data.add("48 392 351 407");
+        data.add("120 52 135 547");
+        data.add("260 52 275 547");
         List<int[]> list = StringConverterUtility.getCoordinates(data);
 
         BarrenLandAnalysis barrenLandAnalysis = new BarrenLandAnalysis(WIDTH, HEIGHT, list);

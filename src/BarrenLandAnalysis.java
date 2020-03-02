@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * Class to determine the fertile land in square meters.
@@ -14,7 +11,7 @@ public class BarrenLandAnalysis {
      * 2. Set Barren indexes in graph.     DONE
      * 3. implement BFS                    DONE
      * 4. store area into data structure   DONE
-     * 5. sort the data               
+     * 5. sort the data
      * 6. print
      * 7. test
      */
@@ -99,7 +96,14 @@ public class BarrenLandAnalysis {
                 fertileLandList.add(area);
             }
         }
-        return fertileLandList;
+
+        //Gets the smallest and largest elements in the list.
+        Collections.sort(fertileLandList);
+        ArrayList<Integer> smallestLargest = new ArrayList<>();
+        smallestLargest.add(fertileLandList.get(0));
+        smallestLargest.add(fertileLandList.get(fertileLandList.size() - 1));
+
+        return smallestLargest;
     }
 
     /**
