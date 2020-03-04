@@ -1,3 +1,5 @@
+package main.java;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +13,7 @@ public class StringConverterUtility {
     private static final int COORDINATES_SIZE = 4;
 
     /**
-     * Constructor for StringConverterUtility.
+     * Constructor for main.java.StringConverterUtility.
      */
     private StringConverterUtility(){
         //Intentionally left blank. Do not want instances being created for the Util class.

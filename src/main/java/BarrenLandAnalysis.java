@@ -1,3 +1,5 @@
+package main.java;
+
 import java.util.*;
 
 /**
@@ -5,24 +7,40 @@ import java.util.*;
  */
 public class BarrenLandAnalysis {
     /**
-     * Psuedo code to implement:
-     *
-     * 1. Initialize 2D array              DONE
-     * 2. Set Barren indexes in graph.     DONE
-     * 3. implement BFS                    DONE
-     * 4. store area into data structure   DONE
-     * 5. sort the data
-     * 6. print
-     * 7. test
+     * 2D graph of the land
      */
     private int[][] mGraph;
+    /**
+     * Land width.
+     */
     private int mGraphWidth;
+    /**
+     * Land height
+     */
     private int mGraphHeight;
+    /**
+     * List of coordinates of the barren land
+     */
     private List<int[]> mBarrenLandList;
-    final int BARREN = -1;
-    final int UNVISITED = 0;
-    final int VISITED = 1;
+    /**
+     * Represents Barren land
+     */
+    private final int BARREN = -1;
+    /**
+     * Represents unvisited land
+     */
+    private final int UNVISITED = 0;
+    /**
+     * Represents visited land
+     */
+    private final int VISITED = 1;
 
+    /**
+     * Constructor for the BarrenLandAnalysis
+     * @param width, width of the land
+     * @param height, height of the land
+     * @param barrenLandList, list of coordinates of the barren land.
+     */
     public BarrenLandAnalysis(int width, int height, List<int[]> barrenLandList) {
         mGraphWidth = width;
         mGraphHeight = height;
@@ -32,14 +50,15 @@ public class BarrenLandAnalysis {
 
     /**
      * Gets the area of the smallest and largest fertile land areas.
-     * @return an int[] array of size 2 of smallest and largest fertile land areas.
+     * @return a String with the smallest and largest fertile land areas.
      */
-    public ArrayList<Integer> getFertileLandArea() {
+    public String getFertileLandArea() {
         Queue<int[]> queue = new LinkedList<>();
         ArrayList<Integer> fertileLandList = new ArrayList<>();
-
+        String smallestLargestFertileLand = "";
         int area = 0;
 
+        verifyDataSet();
         setBarrenLand(getBarrenLandList());
 
         for(int i = 0; i < getGraphWidth(); i++) {
@@ -99,11 +118,9 @@ public class BarrenLandAnalysis {
 
         //Gets the smallest and largest elements in the list.
         Collections.sort(fertileLandList);
-        ArrayList<Integer> smallestLargest = new ArrayList<>();
-        smallestLargest.add(fertileLandList.get(0));
-        smallestLargest.add(fertileLandList.get(fertileLandList.size() - 1));
+        smallestLargestFertileLand = String.format("%s %s", fertileLandList.get(0), fertileLandList.get(fertileLandList.size() -1));
 
-        return smallestLargest;
+        return smallestLargestFertileLand;
     }
 
     /**
@@ -152,6 +169,31 @@ public class BarrenLandAnalysis {
             for(int i = x1; i <= x2; i++) {
                 for(int j = y1; j <= y2; j++) {
                     getGraph()[i][j] = BARREN;
+                }
+            }
+        }
+    }
+
+    /**
+     * Verifies that the data set is within bounds and are valid coordinates.
+     */
+    private void verifyDataSet() {
+        if(getBarrenLandList() == null) {
+            throw new NullPointerException("Expecting barren data, but was actually null.");
+        } else if (getBarrenLandList().size() == 0){
+            throw new IllegalArgumentException("Expecting barren data when none are present.");
+        } else {
+            for (int[] coordinates : getBarrenLandList()) {
+                if (coordinates.length != 4) {
+                    throw new IllegalArgumentException("Expecting data to be size of 4.");
+                } else if (coordinates[0] < 0 || coordinates[0] > getGraphWidth() - 1 ||
+                        coordinates[2] < 0 || coordinates[2] > getGraphWidth() - 1) {
+                    throw new IllegalArgumentException("Invalid barren coordinates found for x coordinates.");
+                } else if (coordinates[1] < 0 || coordinates[1] > getGraphHeight() - 1 ||
+                        coordinates[3] < 0 || coordinates[3] > getGraphHeight() - 1) {
+                    throw new IllegalArgumentException("Invalid barren coordinates found for y coordinates.");
+                } else {
+                    continue;
                 }
             }
         }

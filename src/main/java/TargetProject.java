@@ -1,27 +1,33 @@
+package main.java;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Class to handle reading barren land data and outputting area of fertile land.
+ */
 public class TargetProject {
+    /**
+     * Width of the land
+     */
     private static final int WIDTH = 400;
+    /**
+     * Height of the land
+     */
     private static final int HEIGHT = 600;
 
+    /**
+     * Main method to read from STDIN the coordinates of barren land and prints to STDOUT the fertile land.
+     */
     public static void main(String args[]) {
-//        ArrayList<String> data = readFromSTDIN();
-        ArrayList<String> data = new ArrayList<>();
-        data.add("48 192 351 207");
-        data.add("48 392 351 407");
-        data.add("120 52 135 547");
-        data.add("260 52 275 547");
-        List<int[]> list = StringConverterUtility.getCoordinates(data);
+        ArrayList<String> data = readFromSTDIN();
+        List<int[]> barrenLandCoordinatesList = StringConverterUtility.getCoordinates(data);
 
-        BarrenLandAnalysis barrenLandAnalysis = new BarrenLandAnalysis(WIDTH, HEIGHT, list);
+        BarrenLandAnalysis barrenLandAnalysis = new BarrenLandAnalysis(WIDTH, HEIGHT, barrenLandCoordinatesList);
+        String fertileLand = barrenLandAnalysis.getFertileLandArea();
 
-        ArrayList<Integer> theFinalList = barrenLandAnalysis.getFertileLandArea();
-
-        for(Integer item: theFinalList) {
-            System.out.println(item.toString());
-        }
+        System.out.println(String.format("Smallest and largest fertile land is: %s.", fertileLand));
     }
 
     /**
