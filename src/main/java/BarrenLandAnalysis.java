@@ -72,6 +72,8 @@ public class BarrenLandAnalysis {
 
                     //reset area count.
                     area = 0;
+                } else {
+                    continue;
                 }
 
                 // For each item in the queue, mark it as visited, add all neighboring nodes to the queue, and increment area count.
@@ -118,7 +120,11 @@ public class BarrenLandAnalysis {
 
         //Gets the smallest and largest elements in the list.
         Collections.sort(fertileLandList);
-        smallestLargestFertileLand = String.format("%s %s", fertileLandList.get(0), fertileLandList.get(fertileLandList.size() -1));
+        for(int i = 0; i < fertileLandList.size(); i++){
+            smallestLargestFertileLand += fertileLandList.get(i);
+            smallestLargestFertileLand += " ";
+        }
+        smallestLargestFertileLand = smallestLargestFertileLand.trim();
 
         return smallestLargestFertileLand;
     }
