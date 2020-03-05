@@ -27,7 +27,9 @@ public class TargetProject {
         BarrenLandAnalysis barrenLandAnalysis = new BarrenLandAnalysis(WIDTH, HEIGHT, barrenLandCoordinatesList);
         String fertileLand = barrenLandAnalysis.getFertileLandArea();
 
-        System.out.println(String.format("Smallest and largest fertile land is: %s.", fertileLand));
+        System.out.println(String.format("List of fertile land is: %s.", fertileLand));
+        System.out.println("***************************************************************************************************************");
+        System.out.println("***************************************************************************************************************");
     }
 
     /**
